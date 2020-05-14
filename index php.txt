@@ -1,0 +1,28 @@
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+$apiInstance = new Telstra_Messaging\Api\AuthenticationApi(
+    new GuzzleHttp\Client()
+);
+//API creds from TelstraDev
+$client_id = 'LgownbJFRi5Lam3aN8R7uy1Y1v3eoOGh'; // string | 
+$client_secret = '2YGg2OCjePDG9a0F'; // string | 
+$grant_type = 'client_credentials'; // string | 
+//Lets get a token
+$result = $apiInstance->authToken($client_id, $client_secret, $grant_type);
+//Lets use the token in a function (stores inside the function)
+$config = Telstra_Messaging\Configuration::getDefaultConfiguration()->setAccessToken($result['access_token']);
+//lets get ready to use the token in a call 
+$apiInstance = new Telstra_Messaging\Api\ProvisioningApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+//setting up the array var to do a provision call 
+$provision_number_request = new \Telstra_Messaging\Model\ProvisionNumberRequest(); 
+//set the url endpoint into the var call (this is our node-red endpoint)
+$provision_number_request['notify_url'] = "http://nr3-devsteve-test.toddler-ocp43-au-5290c8c8e5797924dc1ad5d1b85b37c0-0000.au-syd.containers.appdomain.cloud/api/sms";
+//make a call to provision 
+$result = $apiInstance->createSubscription($provision_number_request);
+//checking to make sure it worked 
+$result = $apiInstance->getSubscription();
+print_r($result);
+?>
