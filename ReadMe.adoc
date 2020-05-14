@@ -1,0 +1,122 @@
+:Author: michelle2minhye
+:Email: {michelle.howie@team.telstra.com}
+:Date: 13/05/2020
+:Revision: version#2
+:License: Public Domain
+
+= Project: {Blink_TDev_IBM_CallForCodeMay2020}
+
+This sketch takes a text input from an IoT broker you subscribe to, 
+and sends the payload to your board
+The input commands will turn the LED light of your board ON or OFF.
+Using the NB IOT network with a Telstra SIM, the MKR NB 1500 can be contacted from anywhere
+You can send the input command remotely
+
+1. Set-Up Arduino Board
+2. Register Devices in Watson IoT
+3. Create NodeRed Flow (see repo)
+4. Set-Up Telstra Messaging API (see repo)
+5. Run the Sketch on your Board (see repo)
+
+== Step 1: Set-Up the Arduino Board
+To set-up your board, and connect to the NB IoT cellular network, 
+Follow the Arduino MKR NB 1500 Get Started Guide on TelstraDev IoT Marketplace
+https://dev.telstra.com/sites/default/files/assets/Arduino-MKR-NB-1500-Starter-Guide.pdf 
+
+== Step 2: Register the Devices in WatsonIoT
+Login to IBM Cloud
+go to catalogue and find the IoT platform: https://cloud.ibm.com/catalog/services/internet-of-things-platform 
+create a lite (free) plan
+go to devices and 'add device'
+enter a meaningful device type (e.g "arduinomkr")
+enter a meaningful name (e.g "mydevice1")
+all the other fields are optional
+
+select 'Finish'
+STOP! make sure you copy all the text on this page: ORG, DEVICE TYPE, DEVICE, AUTH METHOD, AUTH TOKEN
+IMPORTANT! you will not have access to the token again. save this somewhere you can access it. 
+If you lose your device token, you will need to add a new device and start again.
+
+== Step 3: Create NodeRed instance
+Go to https://nodered.org/
+If you have an Openshift account, you can run an instance in IBM cloud,
+You can select a local instance of nodered.
+
+Import the Blink_TelstraDev_IBM_Demo.json file containing the demo flow
+
+nodes:
+1. http in: the URL endpoint for our virtual mobile number. SMS' are pushed here in an API call from Telstra Messaging API
+  Method: POST
+  URL: /sms
+  **must append /api/sms to the API call you make in Telstra Messaging API in step 4
+2. function: strips message payload and converts to lower case
+  msg.payload = msg.payload.body.toLowerCase();
+  return msg;
+3. switch: data validation, 'on' OR 'off' payloads (case sensitive) go to the EventSender. else, output in a debug
+4. debug: show output of the switch IF it was not 'on' OR 'off' 
+5. ibmiotout (EventSender): publishes payload to topic in watson iot
+  Authentication: API Key
+  API Key
+    Server Name: 43wcdg.messaging.internetofthings.ibmcloud.com
+  Output Type: Device Command
+  Device Type: as you defined for the device in step 2
+  Device Id: as you defined for the device in step 2
+  Event Type:
+  Format: text
+  Data:data
+  
+
+== Step 4: Set-Up Messaging API
+
+Register your free developer account at https://dev.telstra.com.
+Login and navigate to the My apps page.
+Create your application by clicking the 'Add new app' button
+Select API Free Trial Product when configuring your application. This Product includes the Telstra Messaging API as well as other free trial APIs. Your application will be approved automatically.
+There is a maximum of 1000 free messages per developer. Additional messages and features can be purchased by creating a company and adding billing details. 
+Note your Client key and Client secret as these will be needed to provision a number for your application and for authentication.
+Now head over to Getting Started where you can find a postman collection as well as some links to sample apps and SDKs to get you started.
+
+Download the MessagingAPI-SDK in the language of your choice from https://github.com/telstra 
+
+Get Token
+Get Subscriptions (define the NotifyURL endpoint in this call)
+Note the new subscription mobile number / MSISDN (e.g 61412345678). This is your virtual number
+Send a text to your new virtual number
+
+The notifyURL in the Provisoning call will be the URL where replies to the provisioned number will be posted
+Telstra will deliver messages sent to that dedicated number to the notifyURL defined by you. 
+The notifyURL should be a complete URL address which includes the protocol identifier (e.g. https://). 
+It should also have a forward slash at the end if it is just a domain (e.g. http://www.example.com/).
+If that NotifyURL is the correct nodered http in endpoint, you should see the message payload appear in nodered
+it's then published to your topic of the mqtt broker in watson iot
+the arduino which is polling to that topic will see something has been published, and grab it!
+if it's on/off, the sketch running on the device knows what to do!
+
+== Step 4: Prepare Sketch
+
+Add your secrets (token, device name)
+Upload the code contained in this sketch on to your board
+
+Send a text to your virtual number. 
+FIN!
+
+=== Folder structure
+
+....
+ sketch123                => Arduino sketch folder
+  ├── sketch123.ino       => main Arduino file
+  ├── schematics.png      => (optional) an image of the required schematics
+  ├── layout.png          => (optional) an image of the layout
+  └── ReadMe.adoc         => this file
+....
+
+=== License
+This project is released under a {License} License.
+
+=== Contributing
+To contribute to this project please contact michelle2minhye https://id.arduino.cc/michelle2minhye
+
+=== Help
+This document is written in the _AsciiDoc_ format, a markup language to describe documents.
+If you need help you can search the http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
+or consult the http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]

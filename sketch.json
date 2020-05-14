@@ -1,0 +1,26 @@
+{
+  "cpu": {
+    "fqbn": "",
+    "name": "",
+    "type": ""
+  },
+  "secrets": [
+    {
+      "name": "SECRET_TOKEN",
+      "value": ""
+    },
+    {
+      "name": "SECRET_ORG",
+      "value": ""
+    },
+    {
+      "name": "SECRET_DEVICE_TYPE",
+      "value": ""
+    },
+    {
+      "name": "SECRET_DEVICE_ID",
+      "value": ""
+    }
+  ],
+  "included_libs": []
+}
