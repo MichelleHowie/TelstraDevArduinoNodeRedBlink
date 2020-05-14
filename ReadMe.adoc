@@ -12,11 +12,11 @@ The input commands will turn the LED light of your board ON or OFF.
 Using the NB IOT network with a Telstra SIM, the MKR NB 1500 can be contacted from anywhere
 You can send the input command remotely
 
-= 1. Set-Up Arduino Board
-= 2. Register Devices in Watson IoT
-= 3. Create NodeRed Flow (see repo)
-= 4. Set-Up Telstra Messaging API (see repo)
-= 5. Run the Sketch on your Board (see repo)
+=== 1. Set-Up Arduino Board
+=== 2. Register Devices in Watson IoT
+=== 3. Create NodeRed Flow (see repo)
+=== 4. Set-Up Telstra Messaging API (see repo)
+=== 5. Run the Sketch on your Board (see repo)
 
 == Step 1: Set-Up the Arduino Board
 To set-up your board, and connect to the NB IoT cellular network, 
