@@ -89,24 +89,31 @@ nodes:
 == Step 4: Set-Up Messaging API
 
 Register your free developer account at https://dev.telstra.com.
+
 Login and navigate to the My apps page.
+
 Create your application by clicking the 'Add new app' button
+
 Select API Free Trial Product when configuring your application. This Product includes the Telstra Messaging API as well as other free trial APIs. Your application will be approved automatically.
+
 There is a maximum of 1000 free messages per developer. Additional messages and features can be purchased by creating a company and adding billing details. 
+
 Note your Client key and Client secret as these will be needed to provision a number for your application and for authentication.
+
 Now head over to Getting Started where you can find a postman collection as well as some links to sample apps and SDKs to get you started.
 
 Download the MessagingAPI-SDK in the language of your choice from https://github.com/telstra 
 
-Get Token
-Get Subscriptions (define the NotifyURL endpoint in this call)
-Note the new subscription mobile number / MSISDN (e.g 61412345678). This is your virtual number
-Send a text to your new virtual number
+  Get Token
+  Get Subscriptions (define the NotifyURL endpoint in this call)
+  Note the new subscription mobile number / MSISDN (e.g 61412345678). This is your virtual number
+  Send a text to your new virtual number
 
 The notifyURL in the Provisoning call will be the URL where replies to the provisioned number will be posted
 Telstra will deliver messages sent to that dedicated number to the notifyURL defined by you. 
 The notifyURL should be a complete URL address which includes the protocol identifier (e.g. https://). 
 It should also have a forward slash at the end if it is just a domain (e.g. http://www.example.com/).
+
 If that NotifyURL is the correct nodered http in endpoint, you should see the message payload appear in nodered
 it's then published to your topic of the mqtt broker in watson iot
 the arduino which is polling to that topic will see something has been published, and grab it!
@@ -115,23 +122,25 @@ if it's on/off, the sketch running on the device knows what to do!
 == Step 4: Prepare Sketch
 
 Add your secrets (token, device name)
+
 Upload the code contained in this sketch on to your board
 
 Send a text to your virtual number. 
+
 FIN!
 
 === Folder structure
 
 ....
  sketch123                => Arduino sketch folder
-  ├── sketch123.ino       => main Arduino file
-  ├── schematics.png      => (optional) an image of the required schematics
-  ├── layout.png          => (optional) an image of the layout
+  ├── TDev_Arduino_IoT_Test_without_secrets.ino       => main Arduino file
+  ├── NodeRed_Flow_Blink_TelstraDev_IBM_Demo.json      => (optional) pre-loaded nodered flow you can import
+  ├── index php.txt          => (optional) commands for php SDK for Messaging API to create the subscription with notifyURL
   └── ReadMe.adoc         => this file
 ....
 
 === License
-This project is released under a {License} License.
+This project is released under a {Apache License 2.0} .
 
 === Contributing
 To contribute to this project please contact michelle2minhye https://id.arduino.cc/michelle2minhye
