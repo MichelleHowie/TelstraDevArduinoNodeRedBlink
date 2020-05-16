@@ -63,9 +63,10 @@ nodes:
   
   URL: /sms
   
-  **must append /api/sms to the API call you make in Telstra Messaging API in step 4
+**must append /api/sms to the API call you make in Telstra Messaging API in step 4
   
 2. function: strips message payload and converts to lower case
+  
   msg.payload = msg.payload.body.toLowerCase();
   
   return msg;
@@ -77,13 +78,21 @@ nodes:
 5. ibmiotout (EventSender): publishes payload to topic in watson iot
 
   Authentication: API Key
+  
   API Key
+  
     Server Name: [YOUR_ORG].messaging.internetofthings.ibmcloud.com
+    
   Output Type: Device Command
+  
   Device Type: as you defined for the device in step 2
+  
   Device Id: as you defined for the device in step 2
+  
   Event Type:
+  
   Format: text
+  
   Data:data
   
 
