@@ -46,7 +46,7 @@ you then need to create a new app from the left screen toolbar. Generate API Key
 
 save your api key and token. they will be needed in your node red instance
 
-change the security of this app to be backend admin
+change the role of this app to be backend trusted app
 
 == Step 3: Create NodeRed instance
 Go to https://nodered.org/
