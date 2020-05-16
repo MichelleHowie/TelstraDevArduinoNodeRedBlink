@@ -8,31 +8,49 @@
 
 This sketch takes a text input from an IoT broker you subscribe to, 
 and sends the payload to your board
+
 The input commands will turn the LED light of your board ON or OFF.
+
 Using the NB IOT network with a Telstra SIM, the MKR NB 1500 can be contacted from anywhere
+
 You can send the input command remotely
 
 == Step 1: Set-Up the Arduino Board
 To set-up your board, and connect to the NB IoT cellular network, 
 Follow the Arduino MKR NB 1500 Get Started Guide on TelstraDev IoT Marketplace
+
 https://dev.telstra.com/sites/default/files/assets/Arduino-MKR-NB-1500-Starter-Guide.pdf 
 
 == Step 2: Register the Devices in WatsonIoT
 Login to IBM Cloud
+
 go to catalogue and find the IoT platform: https://cloud.ibm.com/catalog/services/internet-of-things-platform 
+
 create a lite (free) plan
+
 go to devices and 'add device'
+
 enter a meaningful device type (e.g "arduinomkr")
+
 enter a meaningful name (e.g "mydevice1")
+
 all the other fields are optional
 
 select 'Finish'
+
 STOP! make sure you copy all the text on this page: ORG, DEVICE TYPE, DEVICE, AUTH METHOD, AUTH TOKEN
 IMPORTANT! you will not have access to the token again. save this somewhere you can access it. 
 If you lose your device token, you will need to add a new device and start again.
 
+you then need to create a new app from the left screen toolbar. Generate API Key
+
+save your api key and token. they will be needed in your node red instance
+
+change the security of this app to be backend admin
+
 == Step 3: Create NodeRed instance
 Go to https://nodered.org/
+
 If you have an Openshift account, you can run an instance in IBM cloud,
 You can select a local instance of nodered.
 
@@ -40,18 +58,27 @@ Import the Blink_TelstraDev_IBM_Demo.json file containing the demo flow
 
 nodes:
 1. http in: the URL endpoint for our virtual mobile number. SMS' are pushed here in an API call from Telstra Messaging API
+
   Method: POST
+  
   URL: /sms
+  
   **must append /api/sms to the API call you make in Telstra Messaging API in step 4
+  
 2. function: strips message payload and converts to lower case
   msg.payload = msg.payload.body.toLowerCase();
+  
   return msg;
+  
 3. switch: data validation, 'on' OR 'off' payloads (case sensitive) go to the EventSender. else, output in a debug
+
 4. debug: show output of the switch IF it was not 'on' OR 'off' 
+
 5. ibmiotout (EventSender): publishes payload to topic in watson iot
+
   Authentication: API Key
   API Key
-    Server Name: 43wcdg.messaging.internetofthings.ibmcloud.com
+    Server Name: [YOUR_ORG].messaging.internetofthings.ibmcloud.com
   Output Type: Device Command
   Device Type: as you defined for the device in step 2
   Device Id: as you defined for the device in step 2
