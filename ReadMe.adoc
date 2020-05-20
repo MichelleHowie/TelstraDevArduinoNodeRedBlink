@@ -55,6 +55,8 @@ If you have an Openshift account, you can run an instance in IBM cloud,
 You can select a local instance of nodered.
 
 Import the Blink_TelstraDev_IBM_Demo.json file containing the demo flow
+https://github.com/MichelleHowie/TelstraDevArduinoNodeRedBlink/blob/master/NodeRed_Flow_Blink_TelstraDev_IBM_Demo.json
+
 
 nodes:
 1. http in: the URL endpoint for our virtual mobile number. SMS' are pushed here in an API call from Telstra Messaging API
