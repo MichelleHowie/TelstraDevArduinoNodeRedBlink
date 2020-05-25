@@ -17,6 +17,8 @@ You can send the input command remotely
 
 In the Repo, is the outline of the end network architecture: https://github.com/MichelleHowie/TelstraDevArduinoNodeRedBlink/blob/master/project%20flow%20TelstraDev%20CallForCode%20May2020.jpg 
 
+See the video recap of this tutorial recorded at IBM's Call For Code May 2020 Hackathon: https://video.ibm.com/recorded/126684032  
+
 == Step 1: Set-Up the Arduino Board
 To set-up your board, and connect to the NB IoT cellular network, 
 Follow the Arduino MKR NB 1500 Get Started Guide on TelstraDev IoT Marketplace
@@ -52,6 +54,8 @@ change the role of this app to be backend trusted app
 
 == Step 3: Create NodeRed instance
 Go to https://nodered.org/
+
+Get started with NodeRed here:  https://developer.ibm.com/components/node-red/gettingstarted/
 
 If you have an Openshift account, you can run an instance in IBM cloud,
 You can select a local instance of nodered.
