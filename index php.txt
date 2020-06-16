@@ -4,8 +4,8 @@ $apiInstance = new Telstra_Messaging\Api\AuthenticationApi(
     new GuzzleHttp\Client()
 );
 //API creds from TelstraDev
-$client_id = 'LgownbJFRi5Lam3aN8R7uy1Y1v3eoOGh'; // string | 
-$client_secret = '2YGg2OCjePDG9a0F'; // string | 
+$client_id = 'INSERT_YOURS'; // string | 
+$client_secret = 'INSERT_YOURS'; // string | 
 $grant_type = 'client_credentials'; // string | 
 //Lets get a token
 $result = $apiInstance->authToken($client_id, $client_secret, $grant_type);
