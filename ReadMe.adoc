@@ -129,7 +129,7 @@ it's then published to your topic of the mqtt broker in watson iot
 the arduino which is polling to that topic will see something has been published, and grab it!
 if it's on/off, the sketch running on the device knows what to do!
 
-== Step 4: Prepare Sketch
+== Step 5: Prepare Sketch
 
 Add your secrets (token, device name)
 
